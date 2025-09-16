@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Denial RCM Analytics</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: Inter, system-ui, sans-serif; }
+    .card { background: #fff; border-radius: .75rem; box-shadow: 0 8px 24px rgba(0, 0, 0, .06); }
+    .chart-wrap { position: relative; height: 380px; }
+    .kpi { transition: transform .15s ease; }
+    .kpi:hover { transform: translateY(-4px); }
+    .accent { color: #e91e63; }        /* pink */
+    .accent-bg { background: #e91e63; }
+    .dark-bg { background: #111; color: #fff; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-8">
+
+  <!-- Hero -->
+  <header class="mb-8 text-center">
+    <h1 class="text-4xl md:text-5xl font-bold accent">Denial RCM Analytics</h1>
+    <p class="mt-2 text-gray-600">Interactive Excel + Web project to demonstrate healthcare RCM analytics and data storytelling</p>
+    <div class="mt-4 flex flex-wrap items-center justify-center gap-3">
+      <a href="Rcm_Project_1_CoverFinal.xlsx" class="px-5 py-2.5 rounded-lg text-white font-semibold accent-bg hover:opacity-90">📊 Download Excel</a>
+      <a href="resume2025.pdf" class="px-5 py-2.5 rounded-lg font-semibold border border-gray-300 bg-white hover:bg-gray-100">📄 Resume</a>
+      <a href="https://www.linkedin.com/in/tabitha-dev" target="_blank" class="px-5 py-2.5 rounded-lg font-semibold border border-gray-300 bg-white hover:bg-gray-100">🔗 LinkedIn</a>
+    </div>
+  </header>
+
+  <!-- Role alignment -->
+  <section class="card p-6 md:p-8 mb-8">
+    <h2 class="text-2xl font-bold text-center accent mb-4">How This Matches the Role</h2>
+    <div class="grid md:grid-cols-4 gap-6 text-sm">
+      <div><p class="font-semibold accent mb-1">Requirements Gathering</p><p class="text-gray-600">Defined KPIs and filters like payers and denial reasons from business needs.</p></div>
+      <div><p class="font-semibold accent mb-1">Root Cause Identification</p><p class="text-gray-600">Payer vs reason charts expose issues like late filing and documentation gaps.</p></div>
+      <div><p class="font-semibold accent mb-1">Workflow Design</p><p class="text-gray-600">Insight/Next step notes mimic training documentation and job aids.</p></div>
+      <div><p class="font-semibold accent mb-1">Communication</p><p class="text-gray-600">Executive layout with benchmarks and captions supports leadership reporting.</p></div>
+    </div>
+  </section>
+
+  <!-- KPIs -->
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold accent text-center mb-6">Key Performance Indicators</h2>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+      <div class="card kpi p-5 text-center"><div id="kpiClaims" class="text-3xl font-bold accent">300</div><div class="text-gray-500 mt-1">Total Claims</div></div>
+      <div class="card kpi p-5 text-center"><div id="kpiDenial" class="text-3xl font-bold text-red-500">25.7%</div><div class="text-gray-500 mt-1">Denial %</div></div>
+      <div class="card kpi p-5 text-center"><div id="kpiClean" class="text-3xl font-bold text-black">74.3%</div><div class="text-gray-500 mt-1">Clean Claims %</div></div>
+      <div class="card kpi p-5 text-center"><div id="kpiDays" class="text-3xl font-bold text-gray-700">64.9</div><div class="text-gray-500 mt-1">Avg Days A/R</div></div>
+      <div class="card kpi p-5 text-center"><div id="kpiAuth" class="text-3xl font-bold accent">47.7%</div><div class="text-gray-500 mt-1">Authorized %</div></div>
+    </div>
+  </section>
+
+  <!-- Charts -->
+  <section class="card p-6 md:p-8 mb-8">
+    <h2 class="text-2xl font-bold accent text-center">Claims vs Denials by Payer</h2>
+    <p class="text-center text-gray-600 mb-4">Compare claims and denials for Anthem, Humana, Kaiser, UHC</p>
+    <div class="chart-wrap"><canvas id="payerChart"></canvas></div>
+    <p class="mt-4 text-sm text-gray-700 text-center"><strong>Insight:</strong> UHC has the highest claims and denials; Anthem shows fewer claims but similar denial volume as Humana.</p>
+  </section>
+
+  <section class="card p-6 md:p-8 mb-8">
+    <h2 class="text-2xl font-bold accent text-center">Denials by Reason</h2>
+    <p class="text-center text-gray-600 mb-4">Categorized by most common reasons</p>
+    <div class="chart-wrap"><canvas id="reasonChart"></canvas></div>
+    <p class="mt-4 text-sm text-gray-700 text-center"><strong>Insight:</strong> Timely filing and duplicate claims are leading causes, pointing to workflow and training gaps.</p>
+  </section>
+
+  <section class="card p-6 md:p-8 mb-8">
+    <h2 class="text-2xl font-bold accent text-center">Monthly Denial Rate vs Target</h2>
+    <p class="text-center text-gray-600 mb-4">Benchmark set at 10%</p>
+    <div class="chart-wrap"><canvas id="trendChart"></canvas></div>
+    <p class="mt-4 text-sm text-gray-700 text-center"><strong>Insight:</strong> Denial rate peaked in March and trends downward, but remains above target.</p>
+  </section>
+
+  <!-- Skills -->
+  <section class="card p-6 md:p-8">
+    <h2 class="text-2xl font-bold accent text-center mb-4">Skills Demonstrated</h2>
+    <div class="grid md:grid-cols-3 gap-6 text-gray-700 text-sm">
+      <ul class="list-disc pl-6"><li>Data wrangling & KPI design</li><li>Excel pivots & charting</li><li>Interactive filters</li></ul>
+      <ul class="list-disc pl-6"><li>Root cause denial analysis</li><li>Benchmark tracking</li><li>Data storytelling</li></ul>
+      <ul class="list-disc pl-6"><li>Workflow documentation</li><li>Professional communication</li><li>RCM knowledge</li></ul>
+    </div>
+  </section>
+
+</main>
+
+<script>
+const palette = {pink:'#e91e63', red:'#ef5675', black:'#111', gray:'#666'};
+Chart.register(ChartDataLabels);
+
+const base = {
+  payers:['Anthem','Humana','Kaiser','UnitedHealthcare'],
+  claims:[53,65,62,66], denials:[16,16,14,18],
+  reasons:['Timely Filing','Duplicate Claim','Incorrect Info','Charge Exceeds Fee','Missing Docs'],
+  reasonCounts:[17,16,15,15,14],
+  months:['Jan','Feb','Mar','Apr','May'],
+  denialRate:[28,24,30,29,26], target:[10,10,10,10,10]
+};
+
+// payer chart
+new Chart(document.getElementById('payerChart'), {
+  type:'bar',
+  data:{labels:base.payers,
+    datasets:[
+      {label:'Claims',data:base.claims,backgroundColor:palette.black},
+      {label:'Denials',data:base.denials,backgroundColor:palette.pink}
+    ]},
+  options:{plugins:{legend:{position:'top'},datalabels:{color:'#fff'}},responsive:true,maintainAspectRatio:false}
+});
+
+// reason chart
+new Chart(document.getElementById('reasonChart'), {
+  type:'doughnut',
+  data:{labels:base.reasons,
+    datasets:[{data:base.reasonCounts,backgroundColor:[palette.pink,palette.red,palette.black,'#888','#ccc']}]},
+  options:{plugins:{legend:{position:'right'},datalabels:{color:'#111',formatter:(v,ctx)=>Math.round(v*100/base.reasonCounts.reduce((a,b)=>a+b,0))+'%'}},responsive:true}
+});
+
+// trend chart
+new Chart(document.getElementById('trendChart'), {
+  type:'line',
+  data:{labels:base.months,
+    datasets:[
+      {label:'Denial %',data:base.denialRate,borderColor:palette.pink,backgroundColor:palette.pink,tension:.3},
+      {label:'Target',data:base.target,borderColor:palette.black,borderDash:[5,5]}
+    ]},
+  options:{plugins:{legend:{position:'top'}},responsive:true,maintainAspectRatio:false}
+});
+</script>
+</body>
+</html>
