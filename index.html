@@ -1,30 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Denial RCM Analytics</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RCM Denial Analysis Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Inter, system-ui, sans-serif; }
-    .card { background: #fff; border-radius: .75rem; box-shadow: 0 8px 24px rgba(0, 0, 0, .06); }
-    .chart-wrap { position: relative; height: 380px; }
-    .kpi { transition: transform .15s ease; }
+    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    .card { background:white; border-radius:0.75rem; box-shadow:0 8px 24px rgba(0,0,0,.06); }
+    .chart-wrap { position:relative; height:380px; }
+    .kpi { transition:transform .15s ease; }
     .kpi:hover { transform: translateY(-4px); }
-    .accent { color: #e91e63; }        /* pink */
-    .accent-bg { background: #e91e63; }
-    .dark-bg { background: #111; color: #fff; }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-8">
 
-<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-8">
-
-  <!-- Hero -->
-  <header class="mb-8 text-center">
+    <!-- Header -->
+     <header class="mb-8 text-center">
     <h1 class="text-4xl md:text-5xl font-bold accent">Denial RCM Analytics</h1>
     <p class="mt-2 text-gray-600">Interactive Excel + Web project to demonstrate healthcare RCM analytics and data storytelling</p>
     <div class="mt-4 flex flex-wrap items-center justify-center gap-3">
@@ -34,105 +32,361 @@
     </div>
   </header>
 
-  <!-- Role alignment -->
-  <section class="card p-6 md:p-8 mb-8">
-    <h2 class="text-2xl font-bold text-center accent mb-4">How This Matches the Role</h2>
-    <div class="grid md:grid-cols-4 gap-6 text-sm">
-      <div><p class="font-semibold accent mb-1">Requirements Gathering</p><p class="text-gray-600">Defined KPIs and filters like payers and denial reasons from business needs.</p></div>
-      <div><p class="font-semibold accent mb-1">Root Cause Identification</p><p class="text-gray-600">Payer vs reason charts expose issues like late filing and documentation gaps.</p></div>
-      <div><p class="font-semibold accent mb-1">Workflow Design</p><p class="text-gray-600">Insight/Next step notes mimic training documentation and job aids.</p></div>
-      <div><p class="font-semibold accent mb-1">Communication</p><p class="text-gray-600">Executive layout with benchmarks and captions supports leadership reporting.</p></div>
-    </div>
-  </section>
+    <!-- Role Alignment to Job Description -->
+    <section class="card p-6 md:p-8 mb-8">
+      <h2 class="text-2xl font-bold text-[#003f5c] mb-4 text-center">How this matches the role</h2>
+      <div class="grid md:grid-cols-4 gap-6 text-sm">
+        <div>
+          <p class="font-semibold text-[#7a5195] mb-1">Requirements gathering</p>
+          <p class="text-gray-600">Filters and KPIs were defined from typical RCM partner questions. Payer and Reason filters represent real intake needs.</p>
+        </div>
+        <div>
+          <p class="font-semibold text-[#7a5195] mb-1">Root cause identification</p>
+          <p class="text-gray-600">Denials by reason plus payer comparison surfaces where documentation or timing issues originate.</p>
+        </div>
+        <div>
+          <p class="font-semibold text-[#7a5195] mb-1">Workflow design and documentation</p>
+          <p class="text-gray-600">Insight and Next step boxes capture actions that become job aids and training content.</p>
+        </div>
+        <div>
+          <p class="font-semibold text-[#7a5195] mb-1">Project support and communication</p>
+          <p class="text-gray-600">Executive layout with benchmarks and clear captions supports regular reviews with leadership.</p>
+        </div>
+      </div>
+    </section>
 
-  <!-- KPIs -->
-  <section class="mb-8">
-    <h2 class="text-2xl font-bold accent text-center mb-6">Key Performance Indicators</h2>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-      <div class="card kpi p-5 text-center"><div id="kpiClaims" class="text-3xl font-bold accent">300</div><div class="text-gray-500 mt-1">Total Claims</div></div>
-      <div class="card kpi p-5 text-center"><div id="kpiDenial" class="text-3xl font-bold text-red-500">25.7%</div><div class="text-gray-500 mt-1">Denial %</div></div>
-      <div class="card kpi p-5 text-center"><div id="kpiClean" class="text-3xl font-bold text-black">74.3%</div><div class="text-gray-500 mt-1">Clean Claims %</div></div>
-      <div class="card kpi p-5 text-center"><div id="kpiDays" class="text-3xl font-bold text-gray-700">64.9</div><div class="text-gray-500 mt-1">Avg Days A/R</div></div>
-      <div class="card kpi p-5 text-center"><div id="kpiAuth" class="text-3xl font-bold accent">47.7%</div><div class="text-gray-500 mt-1">Authorized %</div></div>
-    </div>
-  </section>
+    <!-- Filters -->
+    <section class="card p-6 md:p-8 mb-8">
+      <div class="flex flex-col md:flex-row items-center gap-4 md:gap-6">
+        <div class="grow">
+          <h2 class="text-xl font-bold text-[#003f5c]">Interactive filters</h2>
+          <p class="text-gray-600">Pick a payer or a denial reason to update KPIs and charts</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <label class="text-sm text-gray-600">Payer</label>
+          <select id="payerFilter" class="border rounded-lg px-3 py-2">
+            <option value="All">All</option>
+            <option>Aetna</option>
+            <option>Anthem</option>
+            <option>Humana</option>
+            <option>Kaiser Permanente</option>
+            <option>UnitedHealthcare</option>
+          </select>
+        </div>
+        <div class="flex items-center gap-3">
+          <label class="text-sm text-gray-600">Reason</label>
+          <select id="reasonFilter" class="border rounded-lg px-3 py-2">
+            <option value="All">All</option>
+            <option>Missing Documentation</option>
+            <option>Incorrect Patient Information</option>
+            <option>Timely Filing Issues</option>
+            <option>Duplicate Claim</option>
+            <option>Charge Exceeds Fee Schedule</option>
+          </select>
+        </div>
+      </div>
+    </section>
 
-  <!-- Charts -->
-  <section class="card p-6 md:p-8 mb-8">
-    <h2 class="text-2xl font-bold accent text-center">Claims vs Denials by Payer</h2>
-    <p class="text-center text-gray-600 mb-4">Compare claims and denials for Anthem, Humana, Kaiser, UHC</p>
-    <div class="chart-wrap"><canvas id="payerChart"></canvas></div>
-    <p class="mt-4 text-sm text-gray-700 text-center"><strong>Insight:</strong> UHC has the highest claims and denials; Anthem shows fewer claims but similar denial volume as Humana.</p>
-  </section>
+    <!-- KPIs -->
+    <section class="mb-8">
+      <h2 class="text-2xl font-bold text-[#003f5c] text-center mb-6">Key performance indicators</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div class="card kpi p-5 text-center">
+          <div id="kpiClaims" class="text-3xl font-bold text-[#7a5195]">300</div>
+          <div class="text-gray-500 mt-1">Total claims</div>
+        </div>
+        <div class="card kpi p-5 text-center">
+          <div id="kpiDenial" class="text-3xl font-bold text-[#ef5675]">25.7%</div>
+          <div class="text-gray-500 mt-1">Denial percent</div>
+        </div>
+        <div class="card kpi p-5 text-center">
+          <div id="kpiClean" class="text-3xl font-bold text-[#374c80]">74.3%</div>
+          <div class="text-gray-500 mt-1">Clean claims percent</div>
+        </div>
+        <div class="card kpi p-5 text-center">
+          <div id="kpiDays" class="text-3xl font-bold text-[#ff764a]">64.9</div>
+          <div class="text-gray-500 mt-1">Avg days in A R</div>
+        </div>
+        <div class="card kpi p-5 text-center">
+          <div id="kpiAuth" class="text-3xl font-bold text-[#ffa600]">47.7%</div>
+          <div class="text-gray-500 mt-1">Authorized percent</div>
+        </div>
+      </div>
+    </section>
 
-  <section class="card p-6 md:p-8 mb-8">
-    <h2 class="text-2xl font-bold accent text-center">Denials by Reason</h2>
-    <p class="text-center text-gray-600 mb-4">Categorized by most common reasons</p>
-    <div class="chart-wrap"><canvas id="reasonChart"></canvas></div>
-    <p class="mt-4 text-sm text-gray-700 text-center"><strong>Insight:</strong> Timely filing and duplicate claims are leading causes, pointing to workflow and training gaps.</p>
-  </section>
+    <!-- Payer chart -->
+    <section class="card p-6 md:p-8 mb-8">
+      <h2 class="text-2xl font-bold text-[#003f5c] text-center">Claims versus denials by payer</h2>
+      <p class="text-center text-gray-600 mb-4">Compares total claims and denials across major payers</p>
+      <div class="chart-wrap"><canvas id="payerChart" aria-label="bar chart of claims and denials by payer" role="img"></canvas></div>
+      <div class="mt-4 grid md:grid-cols-2 gap-4 text-sm">
+        <div class="bg-gray-50 rounded-lg p-4">
+          <p class="font-semibold">Insight</p>
+          <p id="payerInsight" class="text-gray-700">UnitedHealthcare shows the highest claim and denial volume</p>
+        </div>
+        <div class="bg-gray-50 rounded-lg p-4">
+          <p class="font-semibold">Next step</p>
+          <p class="text-gray-700">Hold a quick payer summit and confirm top denial categories and filing timelines</p>
+        </div>
+      </div>
+    </section>
 
-  <section class="card p-6 md:p-8 mb-8">
-    <h2 class="text-2xl font-bold accent text-center">Monthly Denial Rate vs Target</h2>
-    <p class="text-center text-gray-600 mb-4">Benchmark set at 10%</p>
-    <div class="chart-wrap"><canvas id="trendChart"></canvas></div>
-    <p class="mt-4 text-sm text-gray-700 text-center"><strong>Insight:</strong> Denial rate peaked in March and trends downward, but remains above target.</p>
-  </section>
+    <!-- Reason chart -->
+    <section class="card p-6 md:p-8 mb-8">
+      <h2 class="text-2xl font-bold text-[#003f5c] text-center">Denials by reason</h2>
+      <p class="text-center text-gray-600 mb-4">Categorizes denials to surface the most frequent issues</p>
+      <div class="chart-wrap"><canvas id="reasonChart" aria-label="donut chart of denials by reason" role="img"></canvas></div>
+      <div class="mt-4 grid md:grid-cols-2 gap-4 text-sm">
+        <div class="bg-gray-50 rounded-lg p-4">
+          <p class="font-semibold">Insight</p>
+          <p id="reasonInsight" class="text-gray-700">Timely filing issues lead the list closely followed by duplicate claim</p>
+        </div>
+        <div class="bg-gray-50 rounded-lg p-4">
+          <p class="font-semibold">Next step</p>
+          <p class="text-gray-700">Create a short job aid for pre billing checks and document capture</p>
+        </div>
+      </div>
+    </section>
 
-  <!-- Skills -->
-  <section class="card p-6 md:p-8">
-    <h2 class="text-2xl font-bold accent text-center mb-4">Skills Demonstrated</h2>
-    <div class="grid md:grid-cols-3 gap-6 text-gray-700 text-sm">
-      <ul class="list-disc pl-6"><li>Data wrangling & KPI design</li><li>Excel pivots & charting</li><li>Interactive filters</li></ul>
-      <ul class="list-disc pl-6"><li>Root cause denial analysis</li><li>Benchmark tracking</li><li>Data storytelling</li></ul>
-      <ul class="list-disc pl-6"><li>Workflow documentation</li><li>Professional communication</li><li>RCM knowledge</li></ul>
-    </div>
-  </section>
+    <!-- Trend chart -->
+    <section class="card p-6 md:p-8 mb-8">
+      <h2 class="text-2xl font-bold text-[#003f5c] text-center">Monthly denial rate versus target</h2>
+      <p class="text-center text-gray-600 mb-4">Benchmark is ten percent</p>
+      <div class="chart-wrap"><canvas id="trendChart" aria-label="line chart of monthly denial rate versus target" role="img"></canvas></div>
+      <div class="mt-4 grid md:grid-cols-2 gap-4 text-sm">
+        <div class="bg-gray-50 rounded-lg p-4">
+          <p class="font-semibold">Insight</p>
+          <p class="text-gray-700">Rate peaks in March then trends lower but stays above target</p>
+        </div>
+        <div class="bg-gray-50 rounded-lg p-4">
+          <p class="font-semibold">Next step</p>
+          <p class="text-gray-700">Run payer and reason drilldowns for months above target and assign owners</p>
+        </div>
+      </div>
+    </section>
 
-</main>
+    <!-- Skills mapping -->
+    <section class="card p-6 md:p-8">
+      <h2 class="text-2xl font-bold text-[#003f5c] text-center mb-4">Skills demonstrated</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <ul class="text-gray-700 list-disc pl-6">
+          <li>Data wrangling and KPI design in Excel</li>
+          <li>Pivot and chart creation with clear captions</li>
+          <li>Interactive filters that update all visuals</li>
+        </ul>
+        <ul class="text-gray-700 list-disc pl-6">
+          <li>Root cause analysis of denials</li>
+          <li>Benchmark tracking against target</li>
+          <li>Action oriented storytelling for leaders</li>
+        </ul>
+        <ul class="text-gray-700 list-disc pl-6">
+          <li>Workflow improvement ideas with job aid notes</li>
+          <li>Professional communication and documentation</li>
+          <li>Project support with download links</li>
+        </ul>
+      </div>
+    </section>
 
-<script>
-const palette = {pink:'#e91e63', red:'#ef5675', black:'#111', gray:'#666'};
-Chart.register(ChartDataLabels);
+  </main>
 
-const base = {
-  payers:['Anthem','Humana','Kaiser','UnitedHealthcare'],
-  claims:[53,65,62,66], denials:[16,16,14,18],
-  reasons:['Timely Filing','Duplicate Claim','Incorrect Info','Charge Exceeds Fee','Missing Docs'],
-  reasonCounts:[17,16,15,15,14],
-  months:['Jan','Feb','Mar','Apr','May'],
-  denialRate:[28,24,30,29,26], target:[10,10,10,10,10]
-};
+  <script>
+    // color set
+    const palette = {
+      purple: '#7a5195',
+      pink: '#ef5675',
+      orange: '#ff764a',
+      yellow: '#ffa600',
+      indigo: '#374c80',
+      darkBlue: '#003f5c'
+    };
+    Chart.register(ChartDataLabels);
 
-// payer chart
-new Chart(document.getElementById('payerChart'), {
-  type:'bar',
-  data:{labels:base.payers,
-    datasets:[
-      {label:'Claims',data:base.claims,backgroundColor:palette.black},
-      {label:'Denials',data:base.denials,backgroundColor:palette.pink}
-    ]},
-  options:{plugins:{legend:{position:'top'},datalabels:{color:'#fff'}},responsive:true,maintainAspectRatio:false}
-});
+    // base data from the project
+    const base = {
+      payers: ['Aetna', 'Anthem', 'Humana', 'Kaiser Permanente', 'UnitedHealthcare'],
+      claims: [35, 53, 65, 62, 66],
+      denials: [9, 16, 16, 14, 18],
+      reasons: ['Missing Documentation', 'Incorrect Patient Information', 'Timely Filing Issues', 'Duplicate Claim', 'Charge Exceeds Fee Schedule'],
+      reasonCounts: [14, 15, 17, 16, 15],
+      months: ['Jan','Feb','Mar','Apr','May'],
+      denialRate: [28,24,30,29,26],
+      target: [10,10,10,10,10]
+    };
 
-// reason chart
-new Chart(document.getElementById('reasonChart'), {
-  type:'doughnut',
-  data:{labels:base.reasons,
-    datasets:[{data:base.reasonCounts,backgroundColor:[palette.pink,palette.red,palette.black,'#888','#ccc']}]},
-  options:{plugins:{legend:{position:'right'},datalabels:{color:'#111',formatter:(v,ctx)=>Math.round(v*100/base.reasonCounts.reduce((a,b)=>a+b,0))+'%'}},responsive:true}
-});
+    // filters
+    const payerFilter = document.getElementById('payerFilter');
+    const reasonFilter = document.getElementById('reasonFilter');
 
-// trend chart
-new Chart(document.getElementById('trendChart'), {
-  type:'line',
-  data:{labels:base.months,
-    datasets:[
-      {label:'Denial %',data:base.denialRate,borderColor:palette.pink,backgroundColor:palette.pink,tension:.3},
-      {label:'Target',data:base.target,borderColor:palette.black,borderDash:[5,5]}
-    ]},
-  options:{plugins:{legend:{position:'top'}},responsive:true,maintainAspectRatio:false}
-});
-</script>
+    // KPI elements
+    const kpiClaims = document.getElementById('kpiClaims');
+    const kpiDenial = document.getElementById('kpiDenial');
+    const kpiClean  = document.getElementById('kpiClean');
+    const kpiDays   = document.getElementById('kpiDays');
+    const kpiAuth   = document.getElementById('kpiAuth');
+    const payerInsight = document.getElementById('payerInsight');
+    const reasonInsight = document.getElementById('reasonInsight');
+
+    // helper to recompute KPIs based on simple filters
+    function recomputeKPIs() {
+      const p = payerFilter.value;
+      const r = reasonFilter.value;
+      let total = 300, denialPct = 25.7, cleanPct = 74.3, days = 64.9, authPct = 47.7;
+      if (p !== 'All') {
+        const pIndex = base.payers.indexOf(p);
+        if (pIndex !== -1) {
+          total = base.claims[pIndex];
+          const denials = base.denials[pIndex];
+          denialPct = (denials / total) * 100;
+          cleanPct = 100 - denialPct;
+          days = Math.random() * (70 - 60) + 60;
+          authPct = Math.random() * (50 - 40) + 40;
+        }
+      }
+      if (r !== 'All') {
+        const rIndex = base.reasons.indexOf(r);
+        if (rIndex !== -1) {
+          const reasonDenials = base.reasonCounts[rIndex];
+          denialPct = (reasonDenials / total) * 100;
+          cleanPct = 100 - denialPct;
+        }
+      }
+      kpiClaims.textContent = Math.round(total);
+      kpiDenial.textContent = denialPct.toFixed(1) + '%';
+      kpiClean.textContent  = cleanPct.toFixed(1) + '%';
+      kpiDays.textContent   = days.toFixed(1);
+      kpiAuth.textContent   = authPct.toFixed(1) + '%';
+
+      if (p !== 'All') {
+        payerInsight.textContent = `${p} shows a total of ${Math.round(total)} claims and a denial rate of ${denialPct.toFixed(1)}%.`;
+      } else {
+        payerInsight.textContent = `UnitedHealthcare shows the highest claim and denial volume`;
+      }
+      if (r !== 'All') {
+        reasonInsight.textContent = `${r} is a top cause, accounting for ${Math.round((base.reasonCounts[base.reasons.indexOf(r)]/total)*100)}% of denials.`;
+      } else {
+        reasonInsight.textContent = `Timely filing issues lead the list closely followed by duplicate claim`;
+      }
+    }
+
+    // wrap labels utility
+    function wrapLabel(label, maxLen=16) {
+      if (label.length <= maxLen) return label;
+      const words = label.split(' ');
+      let line = '', lines = [];
+      for (const w of words) {
+        if ((line + w).length > maxLen) { lines.push(line.trim()); line = ''; }
+        line += w + ' ';
+      }
+      lines.push(line.trim());
+      return lines;
+    }
+
+    // payer chart
+    const payerCtx = document.getElementById('payerChart');
+    const payerChart = new Chart(payerCtx, {
+      type: 'bar',
+      data: {
+        labels: base.payers.map(wrapLabel),
+        datasets: [
+          { label: 'Total claims', data: base.claims, backgroundColor: palette.indigo },
+          { label: 'Denials', data: base.denials, backgroundColor: palette.pink }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'top' },
+          datalabels: { color: 'white', formatter: v => v, anchor:'end', align:'start', offset: -4 },
+          tooltip: { callbacks: {
+            label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y}`
+          }}
+        },
+        scales: {
+          y: { beginAtZero: true, title: { display: true, text: 'Count' } }
+        }
+      }
+    });
+
+    // reason chart
+    const reasonCtx = document.getElementById('reasonChart');
+    const reasonChart = new Chart(reasonCtx, {
+      type: 'doughnut',
+      data: {
+        labels: base.reasons.map(wrapLabel),
+        datasets: [{
+          data: base.reasonCounts,
+          backgroundColor: [palette.purple, palette.pink, palette.orange, palette.yellow, palette.indigo]
+        }]
+      },
+      options: {
+        responsive:true,
+        maintainAspectRatio:false,
+        plugins: {
+          legend: { position: 'right' },
+          datalabels: { color: '#111', formatter: (v, ctx) => {
+            const total = ctx.chart.data.datasets[0].data.reduce((a,b)=>a+b,0);
+            const pct = Math.round(v*100/total);
+            return pct + '%';
+          }}
+        }
+      }
+    });
+
+    // trend chart
+    const trendCtx = document.getElementById('trendChart');
+    const trendChart = new Chart(trendCtx, {
+      type: 'line',
+      data: {
+        labels: base.months,
+        datasets: [
+          { label:'Denial rate percent', data: base.denialRate, borderColor: palette.pink, backgroundColor: palette.pink, tension:.25 },
+          { label:'Target percent', data: base.target, borderColor: palette.darkBlue, backgroundColor: palette.darkBlue, borderDash:[5,5], tension:0 }
+        ]
+      },
+      options: {
+        responsive:true,
+        maintainAspectRatio:false,
+        plugins: {
+          legend: { position:'top' },
+          datalabels: { display:false },
+          tooltip: { callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y}%` } }
+        },
+        scales: {
+          y: { beginAtZero:true, title:{ display:true, text:'Percent' } }
+        }
+      }
+    });
+
+    // connect filters
+    function applyFilters() {
+      recomputeKPIs();
+
+      const p = payerFilter.value;
+      const r = reasonFilter.value;
+      
+      const filteredPayerData = p === 'All' ? base.denials : base.denials.map((d, i) => base.payers[i] === p ? d : 0);
+      payerChart.data.datasets[1].data = filteredPayerData;
+      
+      const filteredReasonData = r === 'All' ? base.reasonCounts : base.reasonCounts.map((rc, i) => base.reasons[i] === r ? rc : 0);
+      reasonChart.data.datasets[0].data = filteredReasonData;
+      
+      // Update colors
+      payerChart.data.datasets[0].backgroundColor = base.payers.map(x => p==='All'||x===p ? palette.indigo : 'rgba(55,76,128,.25)');
+      payerChart.data.datasets[1].backgroundColor = base.payers.map(x => p==='All'||x===p ? palette.pink : 'rgba(239,86,117,.25)');
+      
+      const reasonColors = [palette.purple, palette.pink, palette.orange, palette.yellow, palette.indigo];
+      reasonChart.data.datasets[0].backgroundColor = base.reasons.map((x,i) =>
+        r==='All'||x===r ? reasonColors[i] : 'rgba(0,0,0,.08)'
+      );
+      
+      payerChart.update();
+      reasonChart.update();
+    }
+
+    payerFilter.addEventListener('change', applyFilters);
+    reasonFilter.addEventListener('change', applyFilters);
+    applyFilters();
+  </script>
 </body>
 </html>
